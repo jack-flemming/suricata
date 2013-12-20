@@ -1459,7 +1459,9 @@ static SCRadixNode *SCRadixFindKey(uint8_t *key_stream, uint16_t key_bitlen,
 SCRadixNode *SCRadixFindKeyGeneric(uint8_t *key_stream, uint16_t key_bitlen,
                                    SCRadixTree *tree, void **user_data_result)
 {
-    return SCRadixFindKey(key_stream, key_bitlen, tree, 1, user_data_result);
+    SCRadixNode *n = SCRadixFindKey(key_stream, key_bitlen, tree, 1, user_data_result);
+    BUG_ON(user_data_result && *user_data_result != NULL && n == NULL);
+    return n;
 }
 
 /**
@@ -1471,7 +1473,9 @@ SCRadixNode *SCRadixFindKeyGeneric(uint8_t *key_stream, uint16_t key_bitlen,
  */
 SCRadixNode *SCRadixFindKeyIPV4ExactMatch(uint8_t *key_stream, SCRadixTree *tree, void **user_data_result)
 {
-    return SCRadixFindKey(key_stream, 32, tree, 1, user_data_result);
+    SCRadixNode *n = SCRadixFindKey(key_stream, 32, tree, 1, user_data_result);
+    BUG_ON(user_data_result && *user_data_result != NULL && n == NULL);
+    return n;
 }
 
 /**
@@ -1483,7 +1487,9 @@ SCRadixNode *SCRadixFindKeyIPV4ExactMatch(uint8_t *key_stream, SCRadixTree *tree
  */
 SCRadixNode *SCRadixFindKeyIPV4BestMatch(uint8_t *key_stream, SCRadixTree *tree, void **user_data_result)
 {
-    return SCRadixFindKey(key_stream, 32, tree, 0, user_data_result);
+    SCRadixNode *n = SCRadixFindKey(key_stream, 32, tree, 0, user_data_result);
+    BUG_ON(user_data_result && *user_data_result != NULL && n == NULL);
+    return n;
 }
 
 /**
@@ -1498,6 +1504,7 @@ SCRadixNode *SCRadixFindKeyIPV4Netblock(uint8_t *key_stream, SCRadixTree *tree,
 {
     SCRadixNode *node = NULL;
     node = SCRadixFindKey(key_stream, 32, tree, 0, user_data_result);
+    BUG_ON(user_data_result && *user_data_result != NULL && node == NULL);
     if (node == NULL)
         return node;
 
@@ -1519,6 +1526,7 @@ SCRadixNode *SCRadixFindKeyIPV6Netblock(uint8_t *key_stream, SCRadixTree *tree,
 {
     SCRadixNode *node = NULL;
     node = SCRadixFindKey(key_stream, 128, tree, 0, user_data_result);
+    BUG_ON(user_data_result && *user_data_result != NULL && node == NULL);
     if (node == NULL)
         return node;
 
@@ -1537,7 +1545,9 @@ SCRadixNode *SCRadixFindKeyIPV6Netblock(uint8_t *key_stream, SCRadixTree *tree,
  */
 SCRadixNode *SCRadixFindKeyIPV6ExactMatch(uint8_t *key_stream, SCRadixTree *tree, void **user_data_result)
 {
-    return SCRadixFindKey(key_stream, 128, tree, 1, user_data_result);
+    SCRadixNode *n = SCRadixFindKey(key_stream, 128, tree, 1, user_data_result);
+    BUG_ON(user_data_result && *user_data_result != NULL && n == NULL);
+    return n;
 }
 
 /**
@@ -1549,7 +1559,9 @@ SCRadixNode *SCRadixFindKeyIPV6ExactMatch(uint8_t *key_stream, SCRadixTree *tree
  */
 SCRadixNode *SCRadixFindKeyIPV6BestMatch(uint8_t *key_stream, SCRadixTree *tree, void **user_data_result)
 {
-    return SCRadixFindKey(key_stream, 128, tree, 0, user_data_result);
+    SCRadixNode *n = SCRadixFindKey(key_stream, 128, tree, 0, user_data_result);
+    BUG_ON(user_data_result && *user_data_result != NULL && n == NULL);
+    return n;
 }
 
 /**
