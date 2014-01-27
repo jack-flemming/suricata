@@ -568,6 +568,10 @@ static int SMTPProcessReply(SMTPState *state, Flow *f,
             SCLogDebug("unable to match reply with request");
             SCReturnInt(-1);
         }
+
+        if (state->cmds_cnt == 0) {
+            return 0;
+        }
     }
 
     if (state->cmds[state->cmds_idx] == SMTP_COMMAND_STARTTLS) {
